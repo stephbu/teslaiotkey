@@ -59,4 +59,8 @@ IAM role/context of the Lambda
 
 #### Tesla API Libraries
 Looking around for Tesla API libraries and instructions for the Tesla Owners REST API.
-Started with a fork of [ElectricGopher](https://github.com/stephbu/electricgopher/),
+[Nathan Beyer's](https://nbeyer.io) [ElectricGopher](https://github.com/nbeyer/electricgopher) seems pretty 
+clean and clear, started with that for now.
+
+Going to start work with a fork first - [https://github.com/stephbu/electricgopher/]()
+
