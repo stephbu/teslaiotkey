@@ -51,4 +51,7 @@ life I'll never get back.
 Moreover there are no official samples for IotButtonEvent written in Go at this point that appear in Google.
 If they do exist, they are buried.
 
+#### Security and Lambda
+I'll pass credentials for my Tesla API key into the lambda through environment variables. Gotta investigate how to securely attach those to the Lambda definition
+
 

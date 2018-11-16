@@ -1,5 +1,5 @@
 package data
 
 type LocationProvider interface {
-	GetLocation() LatLong
+	GetLocation() (LatLong, error)
 }
