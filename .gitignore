@@ -15,5 +15,6 @@
 
 bin/*
 .idea/*
+src/vendor/*
 
 .DS_Store
