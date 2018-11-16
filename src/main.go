@@ -8,9 +8,15 @@ import (
 
 func Handle(button events.IoTButtonEvent) (string, error) {
 	//ctx := context.Background()
-	return fmt.Sprintf("Go hello from %s!", button.SerialNumber ), nil
+
+	// Tesla API path
+	// Tesla Credential(s)
+	// Home Geofence Center
+
+	return fmt.Sprintf("Go hello from %s!", button.SerialNumber), nil
 }
 
 func main() {
+
 	lambda.Start(Handle)
 }

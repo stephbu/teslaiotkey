@@ -6,16 +6,17 @@ using an Amazon IOT Button as an unlock my Tesla only
 when it is parked in my garage.
 
 ## Problem Statement
-When I want to leave for work, I need to unplug my Tesla,
-however this cannot be done until the car is woken up and unlocked e.g.
-by opening the door, then walking back to unplug the car.
+When I leave for work, I need to unplug my Tesla,
+however this cannot be done until the car is awoke and unlocked e.g.
+by opening the door, or using the app to unlock and wake the car, 
+then walking back to unplug the car.
 
 Further still I only want this button to function while the 
 car is in the garage or near the house.  I do not want the 
 car to unlock when it is not at home.
 
-## Solution
-I want to use an Amazon IoT button to will send a message 
+## Solution Overview
+Use an Amazon IoT button to will send a message 
 to unlock the Tesla via the Tesla API.
 
 The code inside of this repository contains a basic implementation
@@ -24,6 +25,8 @@ IoTButtonEvent.
 
 ## References
 [Tesla API Reference](https://tesla-api.timdorr.com)
+
+[Geographic Coordinate System](https://en.wikipedia.org/wiki/Geographic_coordinate_system)
 
 [Amazon IOT Button Gen.2](https://www.amazon.com/AWS-IoT-Button-2nd-Generation/dp/B01KW6YCIM)
 
