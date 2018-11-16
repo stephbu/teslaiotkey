@@ -31,6 +31,14 @@
   version = "v0.7.0"
 
 [[projects]]
+  digest = "1:0a69a1c0db3591fcefb47f115b224592c8dfa4368b7ba9fae509d5e16cdc95c8"
+  name = "github.com/konsorten/go-windows-terminal-sequences"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "5c8c8bd35d3832f5d134ae1e1e375b69a4d25242"
+  version = "v1.0.1"
+
+[[projects]]
   branch = "master"
   digest = "1:c1046169c43b3993cf00edc6fd4a85472badea8497010f883fa7008802d55389"
   name = "github.com/kylelemons/go-gypsy"
@@ -58,6 +66,22 @@
   version = "v0.8.0"
 
 [[projects]]
+  digest = "1:69b1cc331fca23d702bd72f860c6a647afd0aa9fcbc1d0659b1365e26546dd70"
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "bcd833dfe83d3cebad139e4a29ed79cb2318bf95"
+  version = "v1.2.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:66446ec4c3394fb46d1fca57954900af7e4243ba816c80edcb75ead6acab3057"
+  name = "github.com/stephbu/electricgopher"
+  packages = ["api"]
+  pruneopts = "UT"
+  revision = "5e9c9abb9942f698a41eaffaae14ee47c922d69d"
+
+[[projects]]
   digest = "1:19fd46009e9bad71f7e9a8367e7317ed632f89926352a7d59822edec785ae4f3"
   name = "github.com/ziutek/mymysql"
   packages = [
@@ -69,6 +93,25 @@
   revision = "e08c2f35356576b3c3690c252fe5dca728ae9292"
   version = "v1.5.4"
 
+[[projects]]
+  branch = "master"
+  digest = "1:3f3a05ae0b95893d90b9b3b5afdb79a9b3d96e4e36e099d841ae602e4aca0da8"
+  name = "golang.org/x/crypto"
+  packages = ["ssh/terminal"]
+  pruneopts = "UT"
+  revision = "3d3f9f413869b949e48070b5bc593aa22cc2b8f2"
+
+[[projects]]
+  branch = "master"
+  digest = "1:02c5b5c3090e4378ac0df95c5160f00fab3d0e379cefaef30244fe527f34d9de"
+  name = "golang.org/x/sys"
+  packages = [
+    "unix",
+    "windows",
+  ]
+  pruneopts = "UT"
+  revision = "5ac8a444bdc56cee774f8f2b3382156bd27c63c3"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
@@ -77,6 +120,7 @@
     "github.com/aws/aws-lambda-go/lambda",
     "github.com/kellydunn/golang-geo",
     "github.com/pkg/errors",
+    "github.com/stephbu/electricgopher/api",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
