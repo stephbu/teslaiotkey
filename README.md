@@ -52,6 +52,11 @@ Moreover there are no official samples for IotButtonEvent written in Go at this 
 If they do exist, they are buried.
 
 #### Security and Lambda
-I'll pass credentials for my Tesla API key into the lambda through environment variables. Gotta investigate how to securely attach those to the Lambda definition
+I'll pass credentials for my Tesla API key into the lambda through environment variables. Investigate how to securely attach those to the Lambda definition.
+Amazon Key Management API enables creation of secrets, and a client-side API to decode secrets within the code.  Cipher key is exchanged externally as part of the
+IAM role/context of the Lambda
 
 
+#### Tesla API Libraries
+Looking around for Tesla API libraries and instructions for the Tesla Owners REST API.
+Started with a fork of [ElectricGopher](https://github.com/stephbu/electricgopher/),
