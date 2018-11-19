@@ -24,12 +24,19 @@ func LatLongFromString(latLongInput string) (*LatLong, error) {
 
 	// try conversion
 
+	if components[0] == "" {
+		return nil, errors.New("invalid Latitude")
+	}
 	lat, err := strconv.ParseFloat(components[0], 64)
 	if err != nil {
 		return nil, errors.New("invalid Latitude, conversion failed")
 	}
 
-	long, err := strconv.ParseFloat(components[0], 64)
+	if components[1] == "" {
+		return nil, errors.New("invalid Longitude")
+	}
+
+	long, err := strconv.ParseFloat(components[1], 64)
 	if err != nil {
 		return nil, errors.New("invalid Longitude, conversion failed")
 	}
