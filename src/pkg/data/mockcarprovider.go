@@ -18,13 +18,6 @@ func (mock *MockCarProvider) GetLocation() (LatLong, error) {
 	return mock.location, nil
 }
 
-func (mock *MockCarProvider) GetState() (LockState, error) {
-	if mock.throwErrors {
-		return UNKNOWN, errors.New("mock error during GetState")
-	}
-	return UNKNOWN, nil
-}
-
 func (mock *MockCarProvider) SetState(state LockState) (LockState, error) {
 	if mock.throwErrors {
 		return UNKNOWN, errors.New("mock error during SetState")

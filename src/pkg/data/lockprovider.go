@@ -1,7 +1,6 @@
 package data
 
 type LockProvider interface {
-	GetState() (LockState, error)
 	SetState(state LockState) (LockState, error)
 }
 

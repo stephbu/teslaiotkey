@@ -75,11 +75,11 @@
 
 [[projects]]
   branch = "vehicle-fix"
-  digest = "1:87707d609c4fdeb3550accbe4aa37f577dc00de38ecf3e21e7b5902fb30c4991"
+  digest = "1:d67253a74f1a2b52efb626f664a9923c98639747d1eb7ed1f558a4bc8fbe24f2"
   name = "github.com/stephbu/electricgopher"
   packages = ["api"]
   pruneopts = "UT"
-  revision = "68ffc55396123fa3bce3fc87e47b8e00796e38de"
+  revision = "141736479e08b4ed747f803021c2acb586346914"
 
 [[projects]]
   digest = "1:19fd46009e9bad71f7e9a8367e7317ed632f89926352a7d59822edec785ae4f3"
@@ -103,14 +103,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:02c5b5c3090e4378ac0df95c5160f00fab3d0e379cefaef30244fe527f34d9de"
+  digest = "1:a089387bbfcfa884e5aafeebb85929993195bb8959766b1d20102841d47e0b0e"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "5ac8a444bdc56cee774f8f2b3382156bd27c63c3"
+  revision = "93218def8b18e66adbdab3eca8ec334700329f1f"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -120,6 +120,7 @@
     "github.com/aws/aws-lambda-go/lambda",
     "github.com/kellydunn/golang-geo",
     "github.com/pkg/errors",
+    "github.com/sirupsen/logrus",
     "github.com/stephbu/electricgopher/api",
   ]
   solver-name = "gps-cdcl"

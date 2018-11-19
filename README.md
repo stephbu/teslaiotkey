@@ -63,8 +63,14 @@ Working secrets appear to be here - https://pastebin.com/pS7Z6yyP
 
 #### Tesla API Libraries
 Looking around for Tesla API libraries and instructions for the Tesla Owners REST API. [Tim Dorr's Tesla Ruby API](https://github.com/timdorr/tesla-api) is conceptually pretty complete
-[Nathan Beyer's](https://nbeyer.io) [ElectricGopher](https://github.com/nbeyer/electricgopher) seems pretty 
-clean and clear, started with that for now.  
+[Nathan Beyer's](https://nbeyer.io) [ElectricGopher](https://github.com/nbeyer/electricgopher) Golang implementation seems pretty 
+clean and clear - started with that for now.  
 
-Going to start work with a fork first - [https://github.com/stephbu/electricgopher/]()
+Fork here - working in ```vehicle-fix``` branch - [https://github.com/stephbu/electricgopher/]()
+
+Some things I've fixed so far: 
+- lack of closure for body readers created by HttpClient.
+- HTTP POST client support
+- Vehicle Command Library
+
 
