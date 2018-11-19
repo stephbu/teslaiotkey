@@ -56,11 +56,15 @@ I'll pass credentials for my Tesla API key into the lambda through environment v
 Amazon Key Management API enables creation of secrets, and a client-side API to decode secrets within the code.  Cipher key is exchanged externally as part of the
 IAM role/context of the Lambda
 
+#### Tesla OAuth Secrets
+Tesla's API Gateway has a set of secrets to enable access.  Cadence of change as yet unknown. They were initially extracted from the 
+Android application approximately 1yr ago  (notes from Reddit here: https://www.reddit.com/r/teslamotors/comments/72ilu3/a_few_tidbits_from_disassembling_the_tesla/)
+Working secrets appear to be here - https://pastebin.com/pS7Z6yyP
 
 #### Tesla API Libraries
-Looking around for Tesla API libraries and instructions for the Tesla Owners REST API.
+Looking around for Tesla API libraries and instructions for the Tesla Owners REST API. [Tim Dorr's Tesla Ruby API](https://github.com/timdorr/tesla-api) is conceptually pretty complete
 [Nathan Beyer's](https://nbeyer.io) [ElectricGopher](https://github.com/nbeyer/electricgopher) seems pretty 
-clean and clear, started with that for now.
+clean and clear, started with that for now.  
 
 Going to start work with a fork first - [https://github.com/stephbu/electricgopher/]()
 
