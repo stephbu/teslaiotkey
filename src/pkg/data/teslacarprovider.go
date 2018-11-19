@@ -33,8 +33,8 @@ const (
 	VEHICLE_STATE_ONLINE = "online"
 )
 
-func NewTeslaCarProvider(vin string, username string, password string) *TeslaCarProvider {
-	teslaCarProvider := &TeslaCarProvider{VIN: vin, Credentials: UsernamePasswordCredential{Username: username, Password: password}}
+func NewTeslaCarProvider(config *Configuration) *TeslaCarProvider {
+	teslaCarProvider := &TeslaCarProvider{VIN: config.VIN, Credentials: UsernamePasswordCredential{Username: config.Username, Password: config.Password}}
 	return teslaCarProvider
 }
 

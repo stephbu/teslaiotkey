@@ -1,49 +1,79 @@
 package data
 
 import (
-	"github.com/pkg/errors"
+	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 )
 
-const (
-	TESLA_VIN      = "TESLA_VIN"
-	TESLA_USERNAME = "TESLA_USERNAME"
-	TESLA_PASSWORD = "TESLA_PASSWORD"
-)
-
-type Configuration struct {
-	VIN      string
-	Username string
-	Password string
-}
-
-func LoadConfigFromEnv() (result *Configuration, err error) {
-
-	result = &Configuration{}
-	result.VIN = os.Getenv(TESLA_VIN)
-	result.Username = os.Getenv(TESLA_USERNAME)
-	result.Password = os.Getenv(TESLA_PASSWORD)
-
-	// check parameters supplied
-	if result.VIN == "" || result.Username == "" || result.Password == "" {
-		return &Configuration{}, errors.New("missing environment variables")
-	}
-
-	return
-}
-
 func TestNewTeslaCarProviderInitialize(t *testing.T) {
 
 	config, err := LoadConfigFromEnv()
-	if err != nil {
-		t.Error(err)
-	}
+	assert.Nil(t, err)
 
-	teslaCarProvider := NewTeslaCarProvider(config.VIN, config.Username, config.Password)
+	teslaCarProvider := NewTeslaCarProvider(config)
 	err = teslaCarProvider.initialize()
 
 	if err != nil {
 		t.Error(err)
 	}
+}
+
+func TestLoadConfigFromEnv1(t *testing.T) {
+
+	const VIN = "vin"
+	const USERNAME = "username"
+	const PASSWORD = "password"
+	const LATLONG = "47.642744,-122.112782"
+	const RADIUS = "30"
+
+	os.Setenv(TESLA_VIN, VIN)
+	os.Setenv(TESLA_USERNAME, USERNAME)
+	os.Setenv(TESLA_PASSWORD, PASSWORD)
+	os.Setenv(FENCE_LATLONG, LATLONG)
+	os.Setenv(FENCE_RADIUS, RADIUS)
+
+	config, err := LoadConfigFromEnv()
+	assert.Nil(t, err)
+	assert.Equal(t, config.VIN, VIN)
+	assert.Equal(t, config.Username, USERNAME)
+	assert.Equal(t, config.Password, PASSWORD)
+}
+
+func TestLoadConfigFromEnv2(t *testing.T) {
+
+	const VIN = ""
+	const USERNAME = "username"
+	const PASSWORD = "password"
+	const LATLONG = "47.642744,-122.112782"
+	const RADIUS = "30"
+
+	os.Setenv(TESLA_VIN, VIN)
+	os.Setenv(TESLA_USERNAME, USERNAME)
+	os.Setenv(TESLA_PASSWORD, PASSWORD)
+	os.Setenv(FENCE_RADIUS, RADIUS)
+	os.Setenv(FENCE_LATLONG, LATLONG)
+
+	config, err := LoadConfigFromEnv()
+	assert.Error(t, err)
+	assert.Nil(t, config)
+}
+
+func TestLoadConfigFromEnv3(t *testing.T) {
+
+	const VIN = "vin"
+	const USERNAME = ""
+	const PASSWORD = "password"
+	const LATLONG = "47.642744,-122.112782"
+	const RADIUS = "30"
+
+	os.Setenv(TESLA_VIN, VIN)
+	os.Setenv(TESLA_USERNAME, USERNAME)
+	os.Setenv(TESLA_PASSWORD, PASSWORD)
+	os.Setenv(FENCE_RADIUS, RADIUS)
+	os.Setenv(FENCE_LATLONG, LATLONG)
+
+	config, err := LoadConfigFromEnv()
+	assert.Error(t, err)
+	assert.Nil(t, config)
 }
