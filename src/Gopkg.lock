@@ -15,6 +15,14 @@
   revision = "fb8f88d824489a878aee1e0badde7d8e129f8767"
 
 [[projects]]
+  digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  pruneopts = "UT"
+  revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
+  version = "v1.1.1"
+
+[[projects]]
   branch = "master"
   digest = "1:c3350d654d335f3bd199e44805f79da6d5a29b254a3457b83ac399210824c89b"
   name = "github.com/erikstmartin/go-testdb"
@@ -66,6 +74,14 @@
   version = "v0.8.0"
 
 [[projects]]
+  digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
+  name = "github.com/pmezard/go-difflib"
+  packages = ["difflib"]
+  pruneopts = "UT"
+  revision = "792786c7400a136282c1664665ae0a8db921c6c2"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:69b1cc331fca23d702bd72f860c6a647afd0aa9fcbc1d0659b1365e26546dd70"
   name = "github.com/sirupsen/logrus"
   packages = ["."]
@@ -75,11 +91,19 @@
 
 [[projects]]
   branch = "vehicle-fix"
-  digest = "1:d67253a74f1a2b52efb626f664a9923c98639747d1eb7ed1f558a4bc8fbe24f2"
+  digest = "1:d454b2516d82e0f3b46768fef43dcdb4714751ab4ab10a29d2f7d5a237ce64be"
   name = "github.com/stephbu/electricgopher"
   packages = ["api"]
   pruneopts = "UT"
-  revision = "141736479e08b4ed747f803021c2acb586346914"
+  revision = "a54302e175ee34f8cf5d5e6b7619a42dd258e2a2"
+
+[[projects]]
+  digest = "1:18752d0b95816a1b777505a97f71c7467a8445b8ffb55631a7bf779f6ba4fa83"
+  name = "github.com/stretchr/testify"
+  packages = ["assert"]
+  pruneopts = "UT"
+  revision = "f35b8ab0b5a2cef36673838d662e249dd9c94686"
+  version = "v1.2.2"
 
 [[projects]]
   digest = "1:19fd46009e9bad71f7e9a8367e7317ed632f89926352a7d59822edec785ae4f3"
@@ -122,6 +146,7 @@
     "github.com/pkg/errors",
     "github.com/sirupsen/logrus",
     "github.com/stephbu/electricgopher/api",
+    "github.com/stretchr/testify/assert",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

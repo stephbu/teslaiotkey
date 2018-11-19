@@ -9,7 +9,7 @@ import (
 
 var config *data.Configuration
 var teslaInstance *data.TeslaCarProvider
-var homeFence *data.HomeGeofenceProvider
+var homeFence *data.GeofenceProvider
 
 func Handle(button events.IoTButtonEvent) (string, error) {
 
@@ -27,13 +27,14 @@ func Handle(button events.IoTButtonEvent) (string, error) {
 
 func main() {
 
-	config, err := data.LoadConfigFromEnv()
+	var err error
+	config, err = data.LoadConfigFromEnv()
 	if err != nil {
 		return
 	}
 
 	teslaInstance = data.NewTeslaCarProvider(config)
-	homeFence = data.NewHomeGeofenceProvider(config)
+	homeFence = data.NewGeofenceProvider(config)
 
 	lambda.Start(Handle)
 }
