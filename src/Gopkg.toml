@@ -31,7 +31,7 @@
 
 [[constraint]]
   name = "github.com/aws/aws-lambda-go"
-  branch = "master"
+  version = "1.7.0"
 
 [[constraint]]
   name = "github.com/kellydunn/golang-geo"
