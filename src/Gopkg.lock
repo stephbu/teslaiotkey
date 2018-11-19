@@ -74,12 +74,12 @@
   version = "v1.2.0"
 
 [[projects]]
-  branch = "master"
-  digest = "1:66446ec4c3394fb46d1fca57954900af7e4243ba816c80edcb75ead6acab3057"
+  branch = "vehicle-fix"
+  digest = "1:87707d609c4fdeb3550accbe4aa37f577dc00de38ecf3e21e7b5902fb30c4991"
   name = "github.com/stephbu/electricgopher"
   packages = ["api"]
   pruneopts = "UT"
-  revision = "5e9c9abb9942f698a41eaffaae14ee47c922d69d"
+  revision = "68ffc55396123fa3bce3fc87e47b8e00796e38de"
 
 [[projects]]
   digest = "1:19fd46009e9bad71f7e9a8367e7317ed632f89926352a7d59822edec785ae4f3"

@@ -1,6 +1,9 @@
 package data
 
-import "github.com/stephbu/electricgopher/api"
+import (
+	"fmt"
+	"github.com/stephbu/electricgopher/api"
+)
 
 type TeslaCarProvider struct {
 	// External parameters
@@ -9,7 +12,7 @@ type TeslaCarProvider struct {
 
 	// Internal state
 	initialized   bool
-	vehicleId     int64
+	vehicleId     string
 	hasDriveState bool
 	apiEndpoint   string
 
@@ -17,6 +20,7 @@ type TeslaCarProvider struct {
 }
 
 const (
+	// TODO: move somewhat static tesla secrets into environment variables, just in case.
 	TESLA_CLIENT_ID     = "81527cff06843c8634fdc09e8ac0abefb46ac849f38fe1e431c2ef2106796384"
 	TESLA_CLIENT_SECRET = "c7257eb71a564034f9419ee651c7d0e5f7aa6bfbd18bafb5c5c033b093bb2fa3"
 )
@@ -57,9 +61,22 @@ func (tesla *TeslaCarProvider) initialize() error {
 	// Get Vehicle
 	for _, vehicle := range vehicles.Response {
 		if vehicle.Vin == tesla.VIN {
-			tesla.vehicleId = vehicle.Id
+			tesla.vehicleId = string(vehicle.Id)
 		}
 	}
+
+	vehicle, err := tesla.client.GetVehicleState(tesla.vehicleId)
+	if err != nil {
+		return err
+	}
+
+	drive, err := tesla.client.GetDriveState(tesla.vehicleId)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%v", drive.Response)
+
+	fmt.Printf("%v", vehicle.Response)
 
 	tesla.initialized = true
 	return nil
