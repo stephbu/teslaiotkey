@@ -104,7 +104,7 @@ func (tesla *TeslaCarProvider) initialize(ctx context.Context) error {
 
 	awake := false
 	retryCount := 15
-	retryThrottle := time.Tick(time.Second)
+	retryThrottle := time.Tick(time.Millisecond * 1500)
 
 	for !awake && retryCount > 0 {
 
