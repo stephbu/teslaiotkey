@@ -3,21 +3,29 @@
 There are a number of prerequisite items required to get started.
 
 1) Amazon Web Services Account - sign up at [AWS Console](https://aws.amazon.com).  
-- <b>YES</b> use the same account as your Amazon.com shopping account.
-- <b>DO</b> enable multi-factor authentication such as the [Authy app](https://authy.com) to protect your account and your car
-- <b>FREE TIER</b> should be sufficient for your development and day-to-day use
+    - <b>YES</b> use the same account as your Amazon.com shopping account.
+    - <b>DO</b> enable multi-factor authentication such as the [Authy app](https://authy.com) to protect your account and your car
+    - <b>FREE TIER</b> should be sufficient for your development and day-to-day use
+
 2) Purchase an Amazon IOT Button
-- [AWS IoT Button](https://aws.amazon.com/iotbutton/)
+    - [AWS IoT Button](https://aws.amazon.com/iotbutton/)
+
 3) Install Go Language
+
 4) Install deps
+
 4) Clone this repo
-- ```$GOPATH/src/github.com/stephbu/teslaiotkey``` 
+    - ```$GOPATH/src/github.com/stephbu/teslaiotkey``` 
 ## Building Binaries
-Project has a makefile in the root of the repo.  ```$REPO/make``` currently I've only validated the Makefile on OS/X
-- <b>HELP:</b> welcome PRs to make build and CI work for other OS's/Platforms
-- Expects completely packaged Unix binaries in zip form.
-- binaries dropped as ```$REPO/bin/Handle```
-- zipped binaries dropped as ```$REPO/bin/Handle.zip```
+Project has a makefile in the root of the repo $REPO/make currently I've only validated the Makefile on OS/X
+
+  - <b>HELP:</b> welcome PRs to make build and CI work for other OS's/Platforms
+
+  - Expects completely packaged Unix binaries in zip form.
+
+  - binaries dropped as ```$REPO/bin/Handle```
+
+  - zipped binaries dropped as ```$REPO/bin/Handle.zip```
 
 ## Configure IOT Device
 Follow steps in packaging.
