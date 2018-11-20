@@ -2,10 +2,9 @@
 
 ## Overview
 Goal of this project is to create some code to support 
-using an Amazon IOT Button as an unlock my Tesla only
-when it is parked in my garage.
+using a smart-button to unlock a Tesla only parked nearby.
 
-## Installation
+## Status & Installation
 Code is functional, but still work in progress (see [Open Issues](https://github.com/stephbu/teslaiotkey/issues))
 Follow instructions here for [Installation](https://github.com/stephbu/teslaiotkey/blob/master/INSTALLATION.md)
 
@@ -72,15 +71,15 @@ Android application approximately 1yr ago  (notes from Reddit here: https://www.
 Working secrets appear to be here - https://pastebin.com/pS7Z6yyP
 
 #### Tesla API Libraries
-Looking around for Tesla API libraries and instructions for the Tesla Owners REST API. [Tim Dorr's Tesla Ruby API](https://github.com/timdorr/tesla-api) is conceptually pretty complete
-[Nathan Beyer's](https://nbeyer.io) [ElectricGopher](https://github.com/nbeyer/electricgopher) Golang implementation seems pretty 
-clean and clear - started with that for now.  
-
-Fork here - working in ```vehicle-fix``` branch - [https://github.com/stephbu/electricgopher/]()
+Looking around for Tesla API libraries and instructions for the Tesla Owners REST API. [Tim Dorr's Tesla Ruby API](https://github.com/timdorr/tesla-api) is conceptually complete
+and has a great cassette reference of the interactions with the Tesla API server.  I used Tim's code in conjunction with [Nathan Beyer's](https://nbeyer.io) partial Golang port [ElectricGopher](https://github.com/nbeyer/electricgopher) to 
+port to get started on a functional client - currently working in ```vehicle-fix``` branch - [https://github.com/stephbu/electricgopher/]()
 
 Some things I've fixed so far: 
-- lack of closure for body readers created by HttpClient.
+- Socket leakage 
 - HTTP POST client support
 - Vehicle Command Library
+     - Wakeup
+     - Unlock
 
 
