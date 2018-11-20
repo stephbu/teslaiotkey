@@ -32,7 +32,7 @@ The code inside of this repository contains a basic implementation
 of a Lambda function to respond to Amazon IOT Button, and its related 
 IoTButtonEvent.
 
-![architecture](assets/TeslaIotKeyArchitecture.png)
+![architecture](src/assets/TeslaIotKeyArchitecture.png)
 
 ## License
 
