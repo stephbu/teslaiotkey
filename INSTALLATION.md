@@ -5,7 +5,7 @@ There are a number of prerequisite items required to get started.
 1) Amazon Web Services Account - sign up at [AWS Console](https://aws.amazon.com).  
     - <b>YES</b> use the same account as your Amazon.com shopping account.
     - <b>DO</b> enable multi-factor authentication such as the [Authy app](https://authy.com) to protect your account and your car
-    - <b>FREE TIER</b> should be sufficient for your development and day-to-day use
+    - <b>FREE TIER</b> should be sufficient for your development and day-to-day use.
 
 2) Purchase an Amazon IOT Button
     - [AWS IoT Button](https://aws.amazon.com/iotbutton/)
@@ -52,7 +52,10 @@ create test event etc.</i>
     FENCE_LATLONG=homelat,homelong              e.g. 47.629272,-122.147589 
     FENCE_RADIUS=activationDistance(meters)     e.g. 30
     ```
-5) Create test event
+5) Configure Basic Settings
+    - Memory: 256Mb should be plenty
+    - Timeout: set this to a max of 1min 30sec
+6) Create test event
 
     ```
     {
@@ -61,5 +64,5 @@ create test event etc.</i>
       "BatteryVoltage": "1592mV"
     }
     ```
-6) Save everything.
-7) Hit Test - your car should unlock.
+7) Save everything.
+8) Hit Test - your car should unlock.
