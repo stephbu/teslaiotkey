@@ -36,6 +36,8 @@ Follow steps in packaging.
 ## Create Lambda Function
 <i><b>HELP</b> [Open issue](https://github.com/stephbu/teslaiotkey/issues/3) to write scripts to install and configure the Lambda function,
 create test event etc.</i>
+
+<i><b>HELP</b> [Open issue](https://github.com/stephbu/teslaiotkey/issues/6) to enable KMS storage of password blob</i>
 1) Create new function in [Lambda console](https://us-west-2.console.aws.amazon.com/lambda/)
 2) Add IOT Trigger
 3) Upload zip function code 
