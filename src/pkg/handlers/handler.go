@@ -12,18 +12,16 @@ var config *data.Configuration
 var teslaInstance *data.TeslaCarProvider
 var homeFence *data.GeofenceProvider
 
-func init() {
+func Handle(ctx context.Context, button events.IoTButtonEvent) (string, error) {
+
 	var err error
 	config, err = data.LoadConfigFromEnv()
 	if err != nil {
-		return
+		return "", err
 	}
 
 	teslaInstance = data.NewTeslaCarProvider(config)
 	homeFence = data.NewGeofenceProvider(config)
-}
-
-func Handle(ctx context.Context, button events.IoTButtonEvent) (string, error) {
 
 	handlerContext := logging.CreateRequestContext(ctx)
 

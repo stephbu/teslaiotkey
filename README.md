@@ -5,6 +5,10 @@ Goal of this project is to create some code to support
 using an Amazon IOT Button as an unlock my Tesla only
 when it is parked in my garage.
 
+## Installation
+Code is functional, but still work in progress (see [Open Issues](https://github.com/stephbu/teslaiotkey/issues))
+Follow instructions here for [Installation](https://github.com/stephbu/teslaiotkey/blob/master/INSTALLATION.md)
+
 ## Problem Statement
 When I leave for work, I need to unplug my Tesla,
 however this cannot be done until the car is awoke and unlocked e.g.
