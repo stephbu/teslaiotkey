@@ -1,27 +1,27 @@
 package data
 
 import (
+	"context"
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/sirupsen/logrus"
 	"github.com/stephbu/electricgopher/api"
+	"github.com/stephbu/teslaiotkey/src/pkg/logging"
 	"strconv"
 	"time"
 )
 
 type TeslaCarProvider struct {
 	// External parameters
-	VIN         string // API interactions needs to be tied
+	VIN         string // API interactions are tied from VIN to an internal Vehicle ID number
 	Credentials UsernamePasswordCredential
 
 	// Internal state
-	initialized   bool
-	vehicleId     string
-	vehicleState  string
-	hasDriveState bool
-	apiEndpoint   string
-
-	vehicleLocation LatLong
+	initialized     bool    // indicates that the client is correctly initialized
+	vehicleId       string  // internal Tesla vehicle identifier
+	vehicleState    string  // last phone home state after wakeup
+	vehicleLocation LatLong // last vehicle location after wakeup
+	hasDriveState   bool
+	apiEndpoint     string // API prefix
 
 	client *api.Client
 }
@@ -37,12 +37,13 @@ const (
 
 func NewTeslaCarProvider(config *Configuration) *TeslaCarProvider {
 	teslaCarProvider := &TeslaCarProvider{VIN: config.VIN, Credentials: UsernamePasswordCredential{Username: config.Username, Password: config.Password}}
+
 	return teslaCarProvider
 }
 
-func (tesla *TeslaCarProvider) GetLocation() (LatLong, error) {
+func (tesla *TeslaCarProvider) GetLocation(ctx context.Context) (LatLong, error) {
 
-	err := tesla.initialize()
+	err := tesla.initialize(ctx)
 	if err != nil {
 		return LatLong{}, err
 	}
@@ -50,19 +51,34 @@ func (tesla *TeslaCarProvider) GetLocation() (LatLong, error) {
 	return tesla.vehicleLocation, nil
 }
 
-func (tesla *TeslaCarProvider) SetState(state LockState) (LockState, error) {
-	tesla.initialize()
-	// TODO: Implement write lock state
-	return UNKNOWN, nil
+func (tesla *TeslaCarProvider) Unlock(ctx context.Context) error {
+
+	err := tesla.initialize(ctx)
+	if err != nil {
+		return err
+	}
+
+	output, err := tesla.client.Unlock(tesla.vehicleId)
+	if err != nil {
+		return err
+	}
+
+	logging.WithContext(ctx).Printf("TeslaCarProvider::Unlock() response %+v", output)
+	if !output.Response.Result {
+		return errors.New(fmt.Sprintf("Unlock failed - %v", output.Response.Reason))
+	}
+
+	return nil
 }
 
 // Lazy initialization function.
-func (tesla *TeslaCarProvider) initialize() error {
+func (tesla *TeslaCarProvider) initialize(ctx context.Context) error {
+
+	logger := logging.WithContext(ctx)
+
 	if tesla.initialized {
 		return nil
 	}
-
-	logger := logrus.StandardLogger()
 
 	tesla.client = api.NewClient(TESLA_CLIENT_ID, TESLA_CLIENT_SECRET, tesla.Credentials.Username, tesla.Credentials.Password, "https://owner-api.teslamotors.com", logger)
 	vehicles, err := tesla.client.GetVehicles()
@@ -92,7 +108,7 @@ func (tesla *TeslaCarProvider) initialize() error {
 
 	for !awake && retryCount > 0 {
 
-		logger.Printf("Current Car State: %+v (remaining attempts: %d)", tesla.vehicleState, retryCount)
+		logger.Printf("Current Car State: %+v (remaining connection attempts: %d)", tesla.vehicleState, retryCount)
 
 		switch tesla.vehicleState {
 		case VEHICLE_STATE_OFFLINE, VEHICLE_STATE_ASLEEP:

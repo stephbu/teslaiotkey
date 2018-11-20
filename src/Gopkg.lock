@@ -31,6 +31,14 @@
   revision = "8d10e4a1bae52cd8b81ffdec3445890d6dccab3d"
 
 [[projects]]
+  digest = "1:236d7e1bdb50d8f68559af37dbcf9d142d56b431c9b2176d41e2a009b664cda8"
+  name = "github.com/google/uuid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "9b3b1e0f5f99ae461456d768e7d301a7acdaa2d8"
+  version = "v1.1.0"
+
+[[projects]]
   digest = "1:b995d2b18d02dbaf57f413f678228249f65814f3da18a28d5aeafba1141f08fb"
   name = "github.com/kellydunn/golang-geo"
   packages = ["."]
@@ -142,6 +150,7 @@
   input-imports = [
     "github.com/aws/aws-lambda-go/events",
     "github.com/aws/aws-lambda-go/lambda",
+    "github.com/google/uuid",
     "github.com/kellydunn/golang-geo",
     "github.com/pkg/errors",
     "github.com/sirupsen/logrus",

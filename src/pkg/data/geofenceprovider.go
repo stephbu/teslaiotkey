@@ -1,6 +1,10 @@
 package data
 
-import "github.com/kellydunn/golang-geo"
+import (
+	"context"
+	"github.com/kellydunn/golang-geo"
+	"github.com/stephbu/teslaiotkey/src/pkg/logging"
+)
 
 type GeofenceProvider struct {
 	distance float64
@@ -16,13 +20,13 @@ func (fence *GeofenceProvider) GetDistance() float64 {
 	return fence.distance
 }
 
-func (fence *GeofenceProvider) GetLocation() (LatLong, error) {
+func (fence *GeofenceProvider) GetLocation(ctx context.Context) (LatLong, error) {
 	return *fence.location, nil
 }
 
-func (fence *GeofenceProvider) IsInFence(pointLocation LocationProvider) (bool, error) {
+func (fence *GeofenceProvider) IsInFence(ctx context.Context, pointLocation LocationProvider) (bool, error) {
 
-	distance, err := FenceToPointDistance(fence, pointLocation)
+	distance, err := FenceToPointDistance(ctx, fence, pointLocation)
 	if err != nil {
 		return false, err
 	}
@@ -35,18 +39,19 @@ func (fence *GeofenceProvider) IsInFence(pointLocation LocationProvider) (bool, 
 
 }
 
-func FenceToPointDistance(fenceProvider FenceProvider, pointProvider LocationProvider) (float64, error) {
+func FenceToPointDistance(ctx context.Context, fenceProvider FenceProvider, pointProvider LocationProvider) (float64, error) {
 
-	fence, err := fenceProvider.GetLocation()
+	fence, err := fenceProvider.GetLocation(ctx)
 	if err != nil {
 		return 0, err
 	}
 
-	point, err := pointProvider.GetLocation()
+	point, err := pointProvider.GetLocation(ctx)
 	if err != nil {
 		return 0, err
 	}
 
 	distance := geo.NewPoint(fence.Lat, point.Long).GreatCircleDistance(geo.NewPoint(point.Lat, point.Long)) * 1000
+	logging.WithContext(ctx).Printf("FenceToPointDistance=%v meters", distance)
 	return distance, nil
 }

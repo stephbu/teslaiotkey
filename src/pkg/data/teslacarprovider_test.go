@@ -1,18 +1,45 @@
 package data
 
 import (
+	"context"
+	"github.com/stephbu/teslaiotkey/src/pkg/logging"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 )
 
+// Unit test for TeslaCarProvider::Initialize
 func TestNewTeslaCarProviderInitialize(t *testing.T) {
+
+	if testing.Short() {
+		t.SkipNow()
+	}
+
 	config, err := LoadConfigFromEnv()
 	assert.Nil(t, err)
 
 	teslaCarProvider := NewTeslaCarProvider(config)
-	err = teslaCarProvider.initialize()
+	ctx := logging.CreateRequestContext(context.Background())
+	err = teslaCarProvider.initialize(ctx)
 
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+// Unit test for TeslaCarProvider::Unlock
+func TestNewTeslaCarProviderUnlock(t *testing.T) {
+
+	if testing.Short() {
+		t.SkipNow()
+	}
+
+	config, err := LoadConfigFromEnv()
+	assert.Nil(t, err)
+
+	teslaCarProvider := NewTeslaCarProvider(config)
+	ctx := logging.CreateRequestContext(context.Background())
+	err = teslaCarProvider.Unlock(ctx)
 	if err != nil {
 		t.Error(err)
 	}

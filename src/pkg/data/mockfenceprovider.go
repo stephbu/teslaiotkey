@@ -1,6 +1,9 @@
 package data
 
-import "github.com/pkg/errors"
+import (
+	"context"
+	"github.com/pkg/errors"
+)
 
 type MockFenceProvider struct {
 	location    LatLong
@@ -16,16 +19,16 @@ func (mock *MockFenceProvider) GetDistance() float64 {
 	return mock.distance
 }
 
-func (mock *MockFenceProvider) GetLocation() (LatLong, error) {
+func (mock *MockFenceProvider) GetLocation(ctx context.Context) (LatLong, error) {
 	if mock.throwErrors {
 		return LatLong{}, errors.New("mock error during GetLocation")
 	}
 	return mock.location, nil
 }
 
-func (mock *MockFenceProvider) IsInFence(pointLocation LocationProvider) (bool, error) {
+func (mock *MockFenceProvider) IsInFence(ctx context.Context, pointLocation LocationProvider) (bool, error) {
 
-	distance, err := FenceToPointDistance(mock, pointLocation)
+	distance, err := FenceToPointDistance(ctx, mock, pointLocation)
 
 	if err != nil {
 		return false, err

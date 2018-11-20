@@ -1,5 +1,7 @@
 package data
 
+import "context"
+
 type LocationProvider interface {
-	GetLocation() (LatLong, error)
+	GetLocation(ctx context.Context) (LatLong, error)
 }

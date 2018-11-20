@@ -1,13 +1,7 @@
 package data
 
+import "context"
+
 type LockProvider interface {
-	SetState(state LockState) (LockState, error)
+	Unlock(ctx context.Context) error
 }
-
-type LockState int
-
-const ( // iota is reset to 0
-	UNKNOWN  LockState = iota
-	LOCKED   LockState = iota
-	UNLOCKED LockState = iota
-)
