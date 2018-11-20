@@ -19,18 +19,26 @@ car is in the garage or near the house.  I do not want the
 car to unlock when it is not at home.
 
 ## Requirements
-- Enable a smart-button to unlock the car
+- Enable a smart-button to unlock Tesla cars
 - Prevent the car from being unlocked when out of eye-sight from my house or garage.
 - Be robust enough to function every day without fail
 - Be cheap enough to use everyday
 
 ## Solution Overview
-Use an Amazon IoT button to will send a message 
+Use an Amazon IoT button to send a message 
 to unlock the Tesla via the Tesla API.
 
 The code inside of this repository contains a basic implementation
 of a Lambda function to respond to Amazon IOT Button, and its related 
 IoTButtonEvent.
+
+![architecture](assets/TeslaIotKeyArchitecture.png)
+
+## License
+
+This project is licensed under the terms of the MIT license. See the [LICENSE](LICENSE) file.
+
+> This project is in no way affiliated with Tesla Inc. This project is open source under the MIT license, which means you have full access to the source code and can modify it to fit your own needs.
 
 ## References
 [Tesla API Reference](https://tesla-api.timdorr.com)
@@ -81,5 +89,4 @@ Some things I've fixed so far:
 - Vehicle Command Library
      - Wakeup
      - Unlock
-
 
