@@ -1,17 +1,16 @@
-package main
+package data
 
 import (
-	"github.com/stephbu/teslaiotkey/src/pkg/data"
 	"testing"
 )
 
 // Positive Test
 func TestGetCarToFenceDistanceDrivewayPass(t *testing.T) {
 
-	car := data.NewMockCarProvider(data.LatLong{Lat: 47.642744, Long: -122.112747}, false)
-	fence := data.NewMockFenceProvider(data.LatLong{Lat: 47.642744, Long: -122.112782}, 30, false)
+	car := NewMockCarProvider(LatLong{Lat: 47.642744, Long: -122.112747}, false)
+	fence := NewMockFenceProvider(LatLong{Lat: 47.642744, Long: -122.112782}, 30, false)
 
-	distance, err := getCarToFenceDistanceMeters(fence, car)
+	distance, err := FenceToPointDistance(fence, car)
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
@@ -25,10 +24,10 @@ func TestGetCarToFenceDistanceDrivewayPass(t *testing.T) {
 // Positive Test
 func TestGetCarToFenceDistanceNearPass(t *testing.T) {
 
-	car := data.NewMockCarProvider(data.LatLong{Lat: 47.642905, Long: -122.112694}, false)
-	fence := data.NewMockFenceProvider(data.LatLong{Lat: 47.642759, Long: -122.112789}, 30, false)
+	car := NewMockCarProvider(LatLong{Lat: 47.642905, Long: -122.112694}, false)
+	fence := NewMockFenceProvider(LatLong{Lat: 47.642759, Long: -122.112789}, 30, false)
 
-	distance, err := getCarToFenceDistanceMeters(fence, car)
+	distance, err := FenceToPointDistance(fence, car)
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
@@ -42,10 +41,10 @@ func TestGetCarToFenceDistanceNearPass(t *testing.T) {
 // Negative test
 func TestGetCarToFenceDistanceNeighbourhoodFail(t *testing.T) {
 
-	car := data.NewMockCarProvider(data.LatLong{Lat: 47.643234, Long: -122.112018}, false)
-	fence := data.NewMockFenceProvider(data.LatLong{Lat: 47.642759, Long: -122.112789}, 30, false)
+	car := NewMockCarProvider(LatLong{Lat: 47.643234, Long: -122.112018}, false)
+	fence := NewMockFenceProvider(LatLong{Lat: 47.642759, Long: -122.112789}, 30, false)
 
-	distance, err := getCarToFenceDistanceMeters(fence, car)
+	distance, err := FenceToPointDistance(fence, car)
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}

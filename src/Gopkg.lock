@@ -91,11 +91,11 @@
 
 [[projects]]
   branch = "vehicle-fix"
-  digest = "1:d454b2516d82e0f3b46768fef43dcdb4714751ab4ab10a29d2f7d5a237ce64be"
+  digest = "1:d508f596f861809fa70d39a1e4b2848e0847cdd9602999954fd2287f3725831b"
   name = "github.com/stephbu/electricgopher"
   packages = ["api"]
   pruneopts = "UT"
-  revision = "a54302e175ee34f8cf5d5e6b7619a42dd258e2a2"
+  revision = "914dbed8f146dda1e12f12b87909c9e67bebf17c"
 
 [[projects]]
   digest = "1:18752d0b95816a1b777505a97f71c7467a8445b8ffb55631a7bf779f6ba4fa83"
@@ -127,14 +127,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a089387bbfcfa884e5aafeebb85929993195bb8959766b1d20102841d47e0b0e"
+  digest = "1:48b757e61d662021f49a6a0afc67dacae27ee0c3a8f858d927126bcdf49222d3"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "93218def8b18e66adbdab3eca8ec334700329f1f"
+  revision = "ec83556a53fe16b65c452a104ea9d1e86a671852"
 
 [solve-meta]
   analyzer-name = "dep"

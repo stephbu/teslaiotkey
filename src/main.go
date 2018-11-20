@@ -13,13 +13,15 @@ var homeFence *data.GeofenceProvider
 
 func Handle(button events.IoTButtonEvent) (string, error) {
 
-	distance, err := getCarToFenceDistanceMeters(homeFence, teslaInstance)
+	insideFence, err := homeFence.IsInFence(teslaInstance)
 	if err != nil {
 		return "", err
 	}
 
-	if distance < homeFence.GetDistance() {
+	if insideFence {
 		teslaInstance.SetState(data.UNLOCKED)
+	} else {
+		// log outside fence
 	}
 
 	return fmt.Sprintf("Go hello from %s!", button.SerialNumber), nil

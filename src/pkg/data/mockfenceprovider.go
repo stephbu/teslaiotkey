@@ -22,3 +22,17 @@ func (mock *MockFenceProvider) GetLocation() (LatLong, error) {
 	}
 	return mock.location, nil
 }
+
+func (mock *MockFenceProvider) IsInFence(pointLocation LocationProvider) (bool, error) {
+
+	distance, err := FenceToPointDistance(mock, pointLocation)
+
+	if err != nil {
+		return false, err
+	}
+	if distance > mock.distance {
+		return false, nil
+	}
+	return true, nil
+
+}
