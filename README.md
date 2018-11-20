@@ -19,6 +19,12 @@ Further still I only want this button to function while the
 car is in the garage or near the house.  I do not want the 
 car to unlock when it is not at home.
 
+## Requirements
+- Enable a smart-button to unlock the car
+- Prevent the car from being unlocked when out of eye-sight from my house or garage.
+- Be robust enough to function every day without fail
+- Be cheap enough to use everyday
+
 ## Solution Overview
 Use an Amazon IoT button to will send a message 
 to unlock the Tesla via the Tesla API.
