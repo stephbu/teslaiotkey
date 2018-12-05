@@ -3,11 +3,14 @@ package data
 import (
 	"context"
 	"fmt"
+	"reflect"
+	"runtime"
+	"strconv"
+	"time"
+
 	"github.com/pkg/errors"
 	"github.com/stephbu/electricgopher/api"
 	"github.com/stephbu/teslaiotkey/src/pkg/logging"
-	"strconv"
-	"time"
 )
 
 type TeslaCarProvider struct {
@@ -53,23 +56,39 @@ func (tesla *TeslaCarProvider) GetLocation(ctx context.Context) (LatLong, error)
 }
 
 func (tesla *TeslaCarProvider) Unlock(ctx context.Context) error {
+	return tesla.doCommand(ctx, tesla.client.Unlock)
+}
 
+func (tesla *TeslaCarProvider) OpenTrunk(ctx context.Context) error {
+	return tesla.doCommand(ctx, tesla.client.OpenTrunk)
+}
+
+func (tesla *TeslaCarProvider) OpenFrunk(ctx context.Context) error {
+	return tesla.doCommand(ctx, tesla.client.OpenFrunk)
+}
+
+func (tesla *TeslaCarProvider) doCommand(ctx context.Context, command func(string) (*api.CommandResponse, error)) error {
 	err := tesla.initialize(ctx)
 	if err != nil {
 		return err
 	}
 
-	output, err := tesla.client.Unlock(tesla.vehicleId)
+	output, err := command(tesla.vehicleId)
 	if err != nil {
 		return err
 	}
 
-	logging.WithContext(ctx).Printf("TeslaCarProvider::Unlock() response %+v", output)
-	if !output.Response.Result {
-		return errors.New(fmt.Sprintf("Unlock failed - %v", output.Response.Reason))
+	logging.WithContext(ctx).Printf("%s response %+v", output)
+
+	if !output.Result {
+		return errors.New(fmt.Sprintf("%s failed - %v", getFunctionName(command), output.Reason))
 	}
 
 	return nil
+}
+
+func getFunctionName(i interface{}) string {
+	return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
 }
 
 // Lazy initialization function.
