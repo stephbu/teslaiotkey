@@ -99,11 +99,11 @@
 
 [[projects]]
   branch = "vehicle-fix"
-  digest = "1:d508f596f861809fa70d39a1e4b2848e0847cdd9602999954fd2287f3725831b"
+  digest = "1:db523167e93740c476b5661d8f0ca0602c88c22594d83ae2ca03bc10d20e5b8c"
   name = "github.com/stephbu/electricgopher"
   packages = ["api"]
   pruneopts = "UT"
-  revision = "914dbed8f146dda1e12f12b87909c9e67bebf17c"
+  revision = "8d81aa0d2ca3fddb2728bd011d5c855a35059061"
 
 [[projects]]
   digest = "1:18752d0b95816a1b777505a97f71c7467a8445b8ffb55631a7bf779f6ba4fa83"
@@ -127,22 +127,22 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3f3a05ae0b95893d90b9b3b5afdb79a9b3d96e4e36e099d841ae602e4aca0da8"
+  digest = "1:38f553aff0273ad6f367cb0a0f8b6eecbaef8dc6cb8b50e57b6a81c1d5b1e332"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
   pruneopts = "UT"
-  revision = "3d3f9f413869b949e48070b5bc593aa22cc2b8f2"
+  revision = "505ab145d0a99da450461ae2c1a9f6cd10d1f447"
 
 [[projects]]
   branch = "master"
-  digest = "1:48b757e61d662021f49a6a0afc67dacae27ee0c3a8f858d927126bcdf49222d3"
+  digest = "1:0c7cb58af944f9690af91474a75371eecfe54c1ce3771a8dc08924430ee785d3"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "ec83556a53fe16b65c452a104ea9d1e86a671852"
+  revision = "4ed8d59d0b35e1e29334a206d1b3f38b1e5dfb31"
 
 [solve-meta]
   analyzer-name = "dep"

@@ -39,6 +39,12 @@ const (
 	VEHICLE_STATE_OFFLINE = "offline"
 )
 
+var supportedFunctions = map[string]func(*TeslaCarProvider, context.Context) error{
+	"unlock":    (*TeslaCarProvider).Unlock,
+	"openfrunk": (*TeslaCarProvider).OpenFrunk,
+	"opentrunk": (*TeslaCarProvider).OpenTrunk,
+}
+
 func NewTeslaCarProvider(config *Configuration) *TeslaCarProvider {
 	teslaCarProvider := &TeslaCarProvider{VIN: config.VIN, Credentials: UsernamePasswordCredential{Username: config.Username, Password: config.Password}, WakeupTimeout: config.WakeupTimeout}
 
@@ -53,6 +59,16 @@ func (tesla *TeslaCarProvider) GetLocation(ctx context.Context) (LatLong, error)
 	}
 
 	return tesla.vehicleLocation, nil
+}
+
+// Command Provider implementation
+func (tesla *TeslaCarProvider) Invoke(ctx context.Context, command string) error {
+	commandFunction := supportedFunctions[command]
+	if commandFunction != nil {
+		return commandFunction(tesla, ctx)
+	} else {
+		return errors.New(fmt.Sprintf("Unsupported function '%s'", command))
+	}
 }
 
 func (tesla *TeslaCarProvider) Unlock(ctx context.Context) error {
@@ -78,7 +94,7 @@ func (tesla *TeslaCarProvider) doCommand(ctx context.Context, command func(strin
 		return err
 	}
 
-	logging.WithContext(ctx).Printf("%s response %+v", output)
+	logging.WithContext(ctx).Printf("%s response %+v", getFunctionName(command), output)
 
 	if !output.Result {
 		return errors.New(fmt.Sprintf("%s failed - %v", getFunctionName(command), output.Reason))

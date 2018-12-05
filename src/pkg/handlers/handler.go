@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/stephbu/teslaiotkey/src/pkg/data"
@@ -32,6 +33,15 @@ func Handle(ctx context.Context, button events.IoTButtonEvent) (string, error) {
 		WithField("Voltage", button.BatteryVoltage).
 		Info("Request received")
 
+	command := config.ClickMap[button.ClickType]
+	if command == "" {
+		return "", errors.New(fmt.Sprintf("No commands mapped to '%s'", button.ClickType))
+	} else {
+		logger.
+			WithField("ClickType", button.ClickType).
+			WithField("Command", command)
+	}
+
 	insideFence, err := homeFence.IsInFence(ctx, teslaInstance)
 	if err != nil {
 		return "", err
@@ -39,7 +49,8 @@ func Handle(ctx context.Context, button events.IoTButtonEvent) (string, error) {
 
 	if insideFence {
 		logger.Info("inside of fence")
-		err = teslaInstance.Unlock(handlerContext)
+
+		err = teslaInstance.Invoke(handlerContext, command)
 		if err != nil {
 			return "", err
 		}

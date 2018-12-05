@@ -27,3 +27,7 @@ func (mock *MockCarProvider) Unlock() error {
 	}
 	return nil
 }
+
+func (mock *MockCarProvider) Invoke(ctx context.Context, command string) error {
+	return nil
+}

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 	"strconv"
+	"strings"
 )
 
 const (
@@ -13,18 +14,32 @@ const (
 	TESLA_WAKEUP_TIMEOUT = "TESLA_WAKEUP_TIMEOUT"
 	FENCE_LATLONG        = "FENCE_LATLONG"
 	FENCE_RADIUS         = "FENCE_RADIUS"
+	CLICK_MAP            = "CLICK_MAP" // Comma separated functions for single, double, long clicks
 
 	WakeupTimeoutSecondsDefault = int(20)
 	FenceRadiusMetersDefault    = float64(10)
+
+	CLICKTYPE_SINGLE = "SINGLE"
+	CLICKTYPE_DOUBLE = "DOUBLE"
+	CLICKTYPE_LONG   = "LONG"
 )
+
+type ClickMap map[string]string
+
+var ClickMapDefault = ClickMap{
+	CLICKTYPE_SINGLE: "unlock",
+	CLICKTYPE_DOUBLE: "unlock",
+	CLICKTYPE_LONG:   "unlock",
+}
 
 type Configuration struct {
 	VIN           string
 	Username      string
 	Password      string
 	FenceLatLong  *LatLong
-	FenceRadius   float64 // Radius of the geofence in meters
-	WakeupTimeout int
+	FenceRadius   float64  // Radius of the geofence in meters
+	WakeupTimeout int      // Wakeup Timeout Seconds
+	ClickMap      ClickMap // Map of function to button press type
 }
 
 func LoadConfigFromEnv() (result *Configuration, err error) {
@@ -63,6 +78,24 @@ func LoadConfigFromEnv() (result *Configuration, err error) {
 		}
 	} else {
 		result.WakeupTimeout = WakeupTimeoutSecondsDefault
+	}
+
+	clickMap := os.Getenv(CLICK_MAP)
+	if len(clickMap) == 0 {
+		result.ClickMap = ClickMapDefault
+	} else {
+		values := strings.Split(clickMap, ",")
+		result.ClickMap = ClickMap{}
+
+		if len(values) >= 1 {
+			result.ClickMap[CLICKTYPE_SINGLE] = values[0]
+		}
+		if len(values) >= 2 {
+			result.ClickMap[CLICKTYPE_DOUBLE] = values[1]
+		}
+		if len(values) >= 3 {
+			result.ClickMap[CLICKTYPE_LONG] = values[2]
+		}
 	}
 
 	return
