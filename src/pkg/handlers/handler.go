@@ -24,13 +24,18 @@ func Handle(ctx context.Context, button events.IoTButtonEvent) (string, error) {
 	homeFence = data.NewGeofenceProvider(config)
 
 	handlerContext := logging.CreateRequestContext(ctx)
+	logger := logging.WithContext(handlerContext)
+
+	logger.
+		WithField("ClickType", button.ClickType).
+		WithField("SerialNumber", button.SerialNumber).
+		WithField("Voltage", button.BatteryVoltage).
+		Info("Request received")
 
 	insideFence, err := homeFence.IsInFence(ctx, teslaInstance)
 	if err != nil {
 		return "", err
 	}
-
-	logger := logging.WithContext(handlerContext)
 
 	if insideFence {
 		logger.Info("inside of fence")
@@ -44,6 +49,7 @@ func Handle(ctx context.Context, button events.IoTButtonEvent) (string, error) {
 	}
 
 	logger.
+		WithField("ClickType", button.ClickType).
 		WithField("SerialNumber", button.SerialNumber).
 		WithField("VIN", teslaInstance.VIN).
 		Info("Request Complete")

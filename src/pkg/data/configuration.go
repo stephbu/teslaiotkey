@@ -7,19 +7,24 @@ import (
 )
 
 const (
-	TESLA_VIN      = "TESLA_VIN"
-	TESLA_USERNAME = "TESLA_USERNAME"
-	TESLA_PASSWORD = "TESLA_PASSWORD"
-	FENCE_LATLONG  = "FENCE_LATLONG"
-	FENCE_RADIUS   = "FENCE_RADIUS"
+	TESLA_VIN            = "TESLA_VIN"
+	TESLA_USERNAME       = "TESLA_USERNAME"
+	TESLA_PASSWORD       = "TESLA_PASSWORD"
+	TESLA_WAKEUP_TIMEOUT = "TESLA_WAKEUP_TIMEOUT"
+	FENCE_LATLONG        = "FENCE_LATLONG"
+	FENCE_RADIUS         = "FENCE_RADIUS"
+
+	WakeupTimeoutSecondsDefault = int(20)
+	FenceRadiusMetersDefault    = float64(10)
 )
 
 type Configuration struct {
-	VIN          string
-	Username     string
-	Password     string
-	FenceLatLong *LatLong
-	FenceRadius  float64 // Radius of the geofence in meters
+	VIN           string
+	Username      string
+	Password      string
+	FenceLatLong  *LatLong
+	FenceRadius   float64 // Radius of the geofence in meters
+	WakeupTimeout int
 }
 
 func LoadConfigFromEnv() (result *Configuration, err error) {
@@ -41,9 +46,23 @@ func LoadConfigFromEnv() (result *Configuration, err error) {
 	}
 
 	fenceRadius := os.Getenv(FENCE_RADIUS)
-	result.FenceRadius, err = strconv.ParseFloat(fenceRadius, 64)
-	if err != nil {
-		return nil, errors.New("invalid fence environment variable")
+	if len(fenceRadius) > 0 {
+		result.FenceRadius, err = strconv.ParseFloat(fenceRadius, 64)
+		if err != nil {
+			return nil, errors.New("invalid fence environment variable")
+		}
+	} else {
+		result.FenceRadius = FenceRadiusMetersDefault
+	}
+
+	wakeupTimeout := os.Getenv(TESLA_WAKEUP_TIMEOUT)
+	if len(wakeupTimeout) > 0 {
+		result.WakeupTimeout, err = strconv.Atoi(wakeupTimeout)
+		if err != nil {
+			return nil, errors.New("invalid wakeup timeout environment variable")
+		}
+	} else {
+		result.WakeupTimeout = WakeupTimeoutSecondsDefault
 	}
 
 	return

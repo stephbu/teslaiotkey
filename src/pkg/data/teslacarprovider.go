@@ -12,8 +12,9 @@ import (
 
 type TeslaCarProvider struct {
 	// External parameters
-	VIN         string // API interactions are tied from VIN to an internal Vehicle ID number
-	Credentials UsernamePasswordCredential
+	VIN           string // API interactions are tied from VIN to an internal Vehicle ID number
+	Credentials   UsernamePasswordCredential
+	WakeupTimeout int // Maximum number of seconds allowed for Wakeup routine
 
 	// Internal state
 	initialized     bool    // indicates that the client is correctly initialized
@@ -36,7 +37,7 @@ const (
 )
 
 func NewTeslaCarProvider(config *Configuration) *TeslaCarProvider {
-	teslaCarProvider := &TeslaCarProvider{VIN: config.VIN, Credentials: UsernamePasswordCredential{Username: config.Username, Password: config.Password}}
+	teslaCarProvider := &TeslaCarProvider{VIN: config.VIN, Credentials: UsernamePasswordCredential{Username: config.Username, Password: config.Password}, WakeupTimeout: config.WakeupTimeout}
 
 	return teslaCarProvider
 }
@@ -103,12 +104,15 @@ func (tesla *TeslaCarProvider) initialize(ctx context.Context) error {
 	}
 
 	awake := false
-	retryCount := 15
+
+	// compute maximum timeout as offset from current time.
+	timeout := time.Now().Add(time.Duration(tesla.WakeupTimeout) * time.Second)
+
 	retryThrottle := time.Tick(time.Millisecond * 1500)
 
-	for !awake && retryCount > 0 {
+	for !awake && time.Now().Before(timeout) {
 
-		logger.Printf("Current Car State: %+v (remaining connection attempts: %d)", tesla.vehicleState, retryCount)
+		logger.Printf("Current Car State: %+v", tesla.vehicleState)
 
 		switch tesla.vehicleState {
 		case VEHICLE_STATE_OFFLINE, VEHICLE_STATE_ASLEEP:
@@ -125,7 +129,6 @@ func (tesla *TeslaCarProvider) initialize(ctx context.Context) error {
 		}
 
 		if !awake {
-			retryCount--
 			<-retryThrottle
 		}
 	}
